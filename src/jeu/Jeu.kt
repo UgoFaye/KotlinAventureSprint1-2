@@ -54,6 +54,9 @@ class Jeu(monstres: List<Personnage>) {
         var endurance = 0
         var vitesse= 0
         var pointDeVieMax = 0
+        var armePrincipale = null
+        var armurePrincipale = null
+
 
         //mise en place d'une boucle do while pour la repartition des point d'attribut
         do {
@@ -95,12 +98,7 @@ class Jeu(monstres: List<Personnage>) {
         }
             while (attaque + defense + endurance + vitesse > 40)
 
-
-
-
-
-
-        val hero = Personnage(nom,pointDeVieMax,pointDeVieMax,attaque,defense,endurance,vitesse)
+        val hero = Personnage(nom,pointDeVieMax,pointDeVieMax,attaque,defense,endurance,vitesse,armurePrincipale,armurePrincipale)
         this.joueur= hero
         return hero
     }

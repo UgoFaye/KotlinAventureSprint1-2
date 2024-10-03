@@ -1,10 +1,14 @@
 package jeu
 
-import personnage.Personnage
+import item.Potion
+import personnage.*
+import item.*
+import jeu.*
 
 class Combat(
     val jeu :Jeu,
-    val monstre: Personnage
+    val monstre: Personnage,
+
 ) {
     var nombreTours: Int = 1
 
@@ -14,15 +18,28 @@ class Combat(
 
         // do..while pour les choix d'action possible
         do {
+            var hero= this.jeu.joueur
             println("Faites un choix : \n" +
                     "0. Passer votre tour \n" +
-                    "1. Attaquer \n")
+                    "1. Attaquer \n" +
+                    "2. Boire une potion \n" +
+                    "3. Lancer un sort \n" +
+                    "4. Lancer un sort")
             var choix : Int = readln().toInt()
-            if (choix == 1) {
-                this.jeu.joueur.attaque(monstre)
-            }
-            else if (choix == 0) {
+            if (choix == 0) {
                 println("Vous passez votre tour")
+            }
+            else if (choix == 1) {
+                    this.jeu.joueur.attaque(monstre)
+            }
+            else if (choix == 2) {
+                this.jeu.joueur.boirePotion()
+            }
+            else if (choix == 3 && hero is Voleur) {
+                hero.volerItem(monstre)
+            }
+            else if (choix == 3 && hero is Mage) {
+                hero.choisirEtLancerSort()
             }
             else {
                 println("Entrez une valeur correcte")
@@ -30,6 +47,25 @@ class Combat(
         }
             while (choix != 0 && choix != 1)
 
+        // Possibilité de choisir un item dans l'inventaire
+        println("Voulez vous choisir quelque chose dans votre inventaire ? (Yes/No)")
+        var reponse = readln()
+        if (reponse == "Yes") {
+            println("Choisissez un index ${this.jeu.joueur.afficheInventaire()}")
+            var index = readln().toInt()
+            if(index < this.jeu.joueur.inventaire.size) {
+                var item = this.jeu.joueur.inventaire[index]
+                if (item is Bombe){
+                    item.utiliser(this.monstre)
+                }
+                else {
+                    item.utiliser(this.jeu.joueur)
+                }
+            }
+            else {
+                println("Erreur")
+            }
+        }
         println("\u001b[0m")
     }
 
@@ -41,10 +77,13 @@ class Combat(
         //ajout d'un if pour déterminer le tour du monstre et son action
         if (resultat <= 70) {
             this.monstre.attaque(this.jeu.joueur)
-        }else println("${monstre.nom} passe son tour !")
-
+        }
+        else if (this.monstre.avoirPotion() && this.monstre.pointDeVie < this.monstre.pointDeVieMax / 2 && resultat <= 80)
+            this.monstre.boirePotion()
+        else println("${monstre.nom} passe son tour !")
         println("\u001b[0m")
     }
+
 
     // Méthode pour exécuter le combat complet
     fun executerCombat() {

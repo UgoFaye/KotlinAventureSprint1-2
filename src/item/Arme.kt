@@ -6,14 +6,16 @@ import personnage.Personnage
 // Creation de la class Arme
 class Arme (
     nom : String,
-    description : String
+    description : String,
+    var typesArmes: Types_armes,
+    var qualite: Qualite
 )
     // Appel du parents Item
     :Item(nom,description)
 {
     // Creation de la fonction calculerDegats
-    fun calculerDegats (de: TirageDes, typesArmes: Types_armes, qualite: Qualite) : Int {
-        var resultat = de.lance()
+    fun calculerDegats () : Int {
+        var resultat = TirageDes(this.typesArmes.nombreDes,this.typesArmes.valeurDeMax).lance()
         if (resultat >= typesArmes.activationCritique) {
             resultat *= typesArmes.multiplicateurCritique
 

@@ -13,6 +13,6 @@ class Potion (
 {
     // Creation de la fonction utiliser () pour la potion
     override fun utiliser (cible:Personnage) {
-
+        cible.boirePotion()
     }
 }

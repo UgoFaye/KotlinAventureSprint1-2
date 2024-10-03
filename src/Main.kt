@@ -27,7 +27,7 @@ val qualiteLegendaire = Qualite (
     "\u001B[33m"
 )
 
-// Creation des armures
+// Creation des types d'armures
 val typeArmureRembourree = TypeArmure (
     "Armure Rembourrée",
     1
@@ -38,7 +38,7 @@ val typeArmureCuir = TypeArmure (
     2
 )
 
-val typeArmureCuirLoute = TypeArmure (
+val typeArmureCuirCloute = TypeArmure (
     "Armure En cuir Clouté",
     3
 )
@@ -58,7 +58,7 @@ val typeArmureCotteDeMaille = TypeArmure(
     6
 )
 
-// Creation des armes
+// Creation des types d'armes
 val typesArmesDague = Types_armes (
     1,
     4,
@@ -70,7 +70,7 @@ val typesArmesBaton = Types_armes (
     1,
     4,
     2,
-    20
+    20,
 )
 
 val typesArmesLance = Types_armes (
@@ -115,7 +115,7 @@ val typesArmesMarteau = Types_armes (
     20
 )
 
-val typesArmesArclong = Types_armes (
+val typesArmesArcLong = Types_armes (
     1,
     8,
     3,
@@ -138,10 +138,30 @@ fun main(args: Array<String>) {
     val armure2 = Armure (
         "Armure En Cuir Clouté +1",
         "",
-        typeArmureCuirLoute,
+        typeArmureCuirCloute,
         qualiteRare
     )
 
+    //Creation des armes
+    val arme1 = Arme (
+        "Bâton + 2 ",
+        "",
+        typesArmesBaton,
+        qualiteLegendaire
+    )
+
+    val arme2 = Arme (
+        "Dague + 2 ",
+        "",
+        typesArmesDague,
+        qualiteRare
+    )
+    val arme3 = Arme (
+        "big bertha + 2 ",
+        "",
+        typesArmesEpeeLongue,
+        qualiteRare
+    )
     // Creation des bombes
     val gregois = Bombe (
         4,
@@ -177,7 +197,7 @@ fun main(args: Array<String>) {
         "Une grande potion qui contient un liquide rouge"
     )
 
-    //Création des monstres
+    //Creation des monstres
     val gobelin = Personnage(
         "Gobuta le gobelin",
         pointDeVie = 20,
@@ -185,7 +205,9 @@ fun main(args: Array<String>) {
         attaque = 5,
         defense = 4,
         vitesse = 11,
-        endurance = 6
+        endurance = 6,
+        armePrincipale = arme2,
+        armurePrincipale = armure2,
     )
 
     val mimique = Personnage(
@@ -195,27 +217,33 @@ fun main(args: Array<String>) {
         attaque = 14,
         defense = 10,
         endurance = 9,
-        vitesse = 12
+        vitesse = 12,
+        armePrincipale = null,
+        armurePrincipale = null
     )
 
     val oni = Personnage(
         "Lony l'oni",
-        pointDeVie = 110,
-        pointDeVieMax = 110,
+        pointDeVie = 50,
+        pointDeVieMax = 50,
         attaque = 19,
         defense = 16,
         endurance = 12,
-        vitesse = 11
+        vitesse = 11,
+        armePrincipale = arme3,
+        armurePrincipale = armure2,
     )
 
     val dragon = Personnage(
         "lillie",
-        pointDeVie = 195,
-        pointDeVieMax = 195,
+        pointDeVie = 95,
+        pointDeVieMax = 95,
         attaque = 20,
         defense = 20,
         vitesse = 18,
-        endurance = 20
+        endurance = 20,
+        armePrincipale = null,
+        armurePrincipale = armure2,
     )
 
     val Cube_Gelatineux = Personnage(
@@ -225,17 +253,21 @@ fun main(args: Array<String>) {
         attaque = 14,
         defense = 20,
         vitesse = 3,
-        endurance = 6
+        endurance = 6,
+        armePrincipale = null,
+        armurePrincipale = armure1,
     )
 
     val Grand_Dracosire_Diamantin = Personnage(
         "Angarster le Grand dracosire diamantin",
-        pointDeVie = 507,
-        pointDeVieMax = 507,
+        pointDeVie = 57,
+        pointDeVieMax = 57,
         attaque = 28,
         defense = 29,
         endurance = 24,
-        vitesse = 30
+        vitesse = 30,
+        armePrincipale = null,
+        armurePrincipale = armure1,
     )
 
     val Farfadet = Personnage(
@@ -245,7 +277,9 @@ fun main(args: Array<String>) {
         attaque = 8,
         defense = 18,
         endurance = 12,
-        vitesse = 18
+        vitesse = 18,
+        armePrincipale = arme1,
+        armurePrincipale = null,
     )
 
     //Ajout des monstres a la liste de monstres du jeu
